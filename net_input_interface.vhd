@@ -7,8 +7,6 @@ use ieee.std_logic_unsigned.all;
 library work;
 use work.logpack.all;
 
--- Network Input Interface
-
 entity net_input_interface is
 	Generic (
 		FIFO_LENGTH : natural := 16;
