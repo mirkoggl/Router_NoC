@@ -26,8 +26,8 @@ package routerpack is
 	constant DATA_WIDTH : natural := 16;
 	
 	-- Crossbar Mux constants
-	constant SEL_WIDTH : natural := f_log2(CHAN_NUMBER);
-	--constant SEL_WIDTH : natural := 3;
+	--constant SEL_WIDTH : natural := f_log2(CHAN_NUMBER);
+	constant SEL_WIDTH : natural := 3;
 	
 	-- Router Type
 	type data_array_type is array (0 to CHAN_NUMBER-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
@@ -36,7 +36,7 @@ package routerpack is
 	type crossbar_sel_type is array (0 to CHAN_NUMBER-1) of std_logic_vector(SEL_WIDTH-1 downto 0);
 	
 	-- Control Unit Type
-	type ind_sel_in_type is array (0 to 1) of std_logic_vector(f_log2(CHAN_NUMBER)-1 downto 0);
+	type ind_sel_in_type is array (0 to 1) of std_logic_vector(SEL_WIDTH-1 downto 0);
 
 end routerpack;
 

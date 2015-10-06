@@ -37,7 +37,7 @@ architecture RTL of router_control_unit is
 		);
 		Port(
 			Data_In      : in  std_logic_vector(DATA_WIDTH - 1 downto 0);
-			In_Channel   : in  std_logic_vector(f_log2(CHAN_NUMBER) - 1 downto 0);
+			In_Channel   : in  std_logic_vector(SEL_WIDTH - 1 downto 0);
 			crossbar_sel : out crossbar_sel_type
 		);
 	END COMPONENT routing_logic_xy;
@@ -47,8 +47,8 @@ architecture RTL of router_control_unit is
 	
 	-- Control Unit Signals
 	signal current_s : state_type := idle;
-	signal xy_data_in : std_logic_vector(DATA_WIDTH - 1 downto 0) := (others => '0');
-	signal xy_chan_in : std_logic_vector(f_log2(CHAN_NUMBER) - 1 downto 0) := (others => '0');
+	signal xy_data_in : std_logic_vector(DATA_WIDTH-1 downto 0) := (others => '0');
+	signal xy_chan_in : std_logic_vector(SEL_WIDTH-1 downto 0) := (others => '0');
 	
 begin
 	
@@ -80,23 +80,23 @@ begin
 			    if Empty_Out(LOCAL_ID) = '0' then		-- Da sostituire con selettore Round Robin
 			    	current_s <= store_local; 
 			    	xy_data_in <= Data_In(LOCAL_ID);
-			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(LOCAL_ID, f_log2(CHAN_NUMBER));
+			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(LOCAL_ID, SEL_WIDTH);
 			    elsif Empty_Out(NORTH_ID) = '0' then
 			    	current_s <= store_local;
 			    	xy_data_in <= Data_In(NORTH_ID);
-			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(NORTH_ID, f_log2(CHAN_NUMBER));
+			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(NORTH_ID, SEL_WIDTH);
 			    elsif Empty_Out(EAST_ID) = '0' then
 			    	current_s <= store_local;
 			    	xy_data_in <= Data_In(EAST_ID);
-			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(EAST_ID, f_log2(CHAN_NUMBER));
+			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(EAST_ID, SEL_WIDTH);
 			    elsif Empty_Out(WEST_ID) = '0' then
 			    	current_s <= store_local;
 			    	xy_data_in <= Data_In(WEST_ID);
-			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(WEST_ID, f_log2(CHAN_NUMBER));
+			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(WEST_ID, SEL_WIDTH);
 			    elsif Empty_Out(SOUTH_ID) = '0' then	
 			    	current_s <= store_local;
 			    	xy_data_in <= Data_In(SOUTH_ID);
-			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(SOUTH_ID, f_log2(CHAN_NUMBER));
+			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(SOUTH_ID, SEL_WIDTH);
 			    else 
 			    	current_s <= idle;
 			    end if;

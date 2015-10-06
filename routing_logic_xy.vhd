@@ -15,7 +15,7 @@ entity routing_logic_xy is
 	);
 	Port (
 		Data_In    : in std_logic_vector(DATA_WIDTH-1 downto 0);
-		In_Channel : in std_logic_vector (f_log2(CHAN_NUMBER)-1 downto 0);
+		In_Channel : in std_logic_vector(SEL_WIDTH-1 downto 0);
 		crossbar_sel : out crossbar_sel_type		
 	);
 end entity routing_logic_xy;
