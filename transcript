@@ -1,6 +1,6 @@
 # Reading C:/altera/15.0/modelsim_ase/tcl/vsim/pref.tcl
 # vsim -gui -modelsimini C:/Users/Mirko/AppData/Local/Temp/SigasiCompileCache2460366855233223397/Router_NoC/mentor/modelsim.ini work.tb_router(behavior) 
-# Start time: 16:17:03 on Oct 07,2015
+# Start time: 16:21:51 on Oct 07,2015
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -17,5 +17,53 @@
 # Loading work.crossbar(rtl)
 # Loading work.mux_n(rtl)
 # Loading work.net_output_interface(rtl)
-# End time: 16:17:33 on Oct 07,2015, Elapsed time: 0:00:30
-# Errors: 0, Warnings: 1
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/CU_inst/Data_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 25
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/CU_inst/Empty_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 26
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/CU_inst/Full_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 27
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/CU_inst/Sdone_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 28
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/CU_inst/Sdone_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 29
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/CU_inst/Shft_In'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 30
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/CU_inst/Wr_En_Out'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 31
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/CU_inst/Cross_Sel'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 32
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/CU_inst/current_s'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 33
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/CU_inst/xy_data_in'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 34
+# ** Error: (vish-4014) No objects found matching '/tb_router/uut/CU_inst/xy_chan_in'.
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 35
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 98
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 99
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 100
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 101
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 102
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 103
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 104
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 105
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 106
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 107
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 108
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 109
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 110
+# End time: 16:22:15 on Oct 07,2015, Elapsed time: 0:00:24
+# Errors: 72, Warnings: 1

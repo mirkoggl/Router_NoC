@@ -72,30 +72,24 @@ begin
 		  
 		  ack <= '0';
 		  sdone <= '0';
-		  
-		  case current_s is
-		     when idle =>       
-			     if valid ='1' then
-			     	if fifo_full = '1' then
-				    	ack <= '0';
-				    else
-				    	fifo_memory(conv_integer(tail_pt)) <= Data_In; 
-				    	ack <= '1';
-				    	tail_pt <= tail_pt + '1';
-				    	elem_count <= elem_count + '1';
-				    end if;
-			      current_s <= idle;
-				  elsif shft = '1' then
-				  	if fifo_empty = '0' then
-				    	elem_count <= elem_count - '1';
-				    	head_pt <= head_pt + '1';
-						sdone <= '1';
-					end if;
-				    current_s <= idle;
-				  end if;       
-			end case;
-		
-		end if;
+		      
+		  if valid ='1' then
+			  if fifo_full = '1' then
+				 ack <= '0';
+			  else
+				 fifo_memory(conv_integer(tail_pt)) <= Data_In; 
+				 ack <= '1';
+				 tail_pt <= tail_pt + '1';
+				 elem_count <= elem_count + '1';
+		      end if;
+		  elsif shft = '1' then
+			  if fifo_empty = '0' then
+				 elem_count <= elem_count - '1';
+				 head_pt <= head_pt + '1';
+				 sdone <= '1';
+			  end if;
+		  end if;  
+		end if;     
 	end process;
 
 end architecture RTL;
