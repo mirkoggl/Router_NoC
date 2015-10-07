@@ -36,19 +36,20 @@ architecture RTL of router_control_unit is
 			LOCAL_Y    : natural := 1
 		);
 		Port(
-			Data_In      : in  std_logic_vector(DATA_WIDTH - 1 downto 0);
-			In_Channel   : in  std_logic_vector(SEL_WIDTH - 1 downto 0);
-			crossbar_sel : out crossbar_sel_type
+			Data_In      : in std_logic_vector(DATA_WIDTH-1 downto 0);
+			In_Channel   : in std_logic_vector(SEL_WIDTH-1 downto 0);
+			Out_Channel  : out std_logic_vector(SEL_WIDTH-1 downto 0); 
+			crossbar_sel : out crossbar_sel_type		
 		);
 	END COMPONENT routing_logic_xy;
 	
-	constant zeros_vector : std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
 	type state_type is (idle, store_local, out_local, out_delay); 
 	
 	-- Control Unit Signals
 	signal current_s : state_type := idle;
-	signal xy_data_in : std_logic_vector(DATA_WIDTH-1 downto 0) := (others => '0');
-	signal xy_chan_in : std_logic_vector(SEL_WIDTH-1 downto 0) := (others => '0');
+	signal xy_data_in  : std_logic_vector(DATA_WIDTH-1 downto 0) := (others => '0');
+	signal xy_chan_in  : std_logic_vector(SEL_WIDTH-1 downto 0) := (others => '0');
+	signal xy_chan_out : std_logic_vector(SEL_WIDTH-1 downto 0) := (others => '0'); 
 	
 begin
 	
@@ -60,6 +61,7 @@ begin
 		Port Map(
 			Data_In      => xy_data_in,
 			In_Channel   => xy_chan_in,
+			Out_Channel  => xy_chan_out,
 			crossbar_sel => Cross_Sel
 		);
 	
@@ -78,23 +80,23 @@ begin
 		    case current_s is
 		     when idle =>       
 			    if Empty_Out(LOCAL_ID) = '0' then		-- Da sostituire con selettore Round Robin
-			    	current_s <= store_local; 
-			    	xy_data_in <= Data_In(LOCAL_ID);
+			    	current_s <= out_local; 
+			    	xy_data_in <= Data_In(LOCAL_ID); 
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(LOCAL_ID, SEL_WIDTH);
 			    elsif Empty_Out(NORTH_ID) = '0' then
-			    	current_s <= store_local;
+			    	current_s <= out_local;
 			    	xy_data_in <= Data_In(NORTH_ID);
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(NORTH_ID, SEL_WIDTH);
 			    elsif Empty_Out(EAST_ID) = '0' then
-			    	current_s <= store_local;
+			    	current_s <= out_local;
 			    	xy_data_in <= Data_In(EAST_ID);
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(EAST_ID, SEL_WIDTH);
 			    elsif Empty_Out(WEST_ID) = '0' then
-			    	current_s <= store_local;
+			    	current_s <= out_local;
 			    	xy_data_in <= Data_In(WEST_ID);
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(WEST_ID, SEL_WIDTH);
 			    elsif Empty_Out(SOUTH_ID) = '0' then	
-			    	current_s <= store_local;
+			    	current_s <= out_local;
 			    	xy_data_in <= Data_In(SOUTH_ID);
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(SOUTH_ID, SEL_WIDTH);
 			    else 
@@ -103,20 +105,20 @@ begin
 			    
 			when store_local =>
 				if Sdone_In(CONV_INTEGER(xy_chan_in)) = '1' then
-					current_s <= out_local;
+					current_s <= idle;
 				else
 					Shft_In(CONV_INTEGER(xy_chan_in)) <= '1';		 -- Avvisa l'Input Fifo selezionata che il dato è stato prelevato  
 					current_s <= store_local;
 				end if;
 				
 			when out_local =>	
-				if Sdone_Out(CONV_INTEGER(xy_chan_in)) = '1' then
-					current_s <= idle;
-				elsif Full_Out(CONV_INTEGER(xy_chan_in)) = '1' then  -- Fifo Out full, scarta il pacchetto e torna idle
+				if Sdone_Out(CONV_INTEGER(xy_chan_out)) = '1' then
+					current_s <= store_local;
+				elsif Full_Out(CONV_INTEGER(xy_chan_out)) = '1' then  -- Fifo Out full, scarta il pacchetto e torna idle
 					current_s <= idle;
 				else
 					current_s <= out_delay;
-					Wr_En_Out(CONV_INTEGER(xy_chan_in)) <= '1';	
+					Wr_En_Out(CONV_INTEGER(xy_chan_out)) <= '1';	
 				end if;
 			
 			when out_delay => 	-- Stato usato per generare impulsi di write ed evitare di scrivere nel buffer di uscita più volte lo stesso dato

@@ -1,6 +1,6 @@
 # Reading C:/altera/15.0/modelsim_ase/tcl/vsim/pref.tcl
-# vsim -gui -modelsimini C:/Users/Mirko/AppData/Local/Temp/SigasiCompileCache2986637799417406938/Router_NoC/mentor/modelsim.ini work.tbc_in_out(behavior) 
-# Start time: 15:39:09 on Oct 06,2015
+# vsim -gui -modelsimini C:/Users/Mirko/AppData/Local/Temp/SigasiCompileCache2460366855233223397/Router_NoC/mentor/modelsim.ini work.tb_router(behavior) 
+# Start time: 15:25:28 on Oct 07,2015
 # Loading std.standard
 # Loading std.textio(body)
 # Loading ieee.std_logic_1164(body)
@@ -8,8 +8,59 @@
 # Loading ieee.std_logic_arith(body)
 # Loading ieee.std_logic_unsigned(body)
 # Loading work.logpack(body)
-# Loading work.tbc_in_out(behavior)
+# Loading work.routerpack(body)
+# Loading work.tb_router(behavior)
+# Loading work.router_mesh(rtl)
 # Loading work.net_input_interface(rtl)
+# Loading work.router_control_unit(rtl)
+# Loading work.routing_logic_xy(rtl)
+# Loading work.crossbar(rtl)
+# Loading work.mux_n(rtl)
 # Loading work.net_output_interface(rtl)
-# End time: 15:39:13 on Oct 06,2015, Elapsed time: 0:00:04
-# Errors: 0, Warnings: 0
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 98
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 99
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 100
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 101
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 102
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 103
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 104
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 105
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 106
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 107
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 108
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 109
+# ** Error: unknown option "wave"
+# Executing ONERROR command at macro C:\Users\Mirko\workspaceSigasi\Router_NoC\wave_router.do line 110
+run
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(4)/MuxX
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(4)/MuxX
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(3)/MuxX
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(3)/MuxX
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(2)/MuxX
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(2)/MuxX
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(1)/MuxX
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(1)/MuxX
+# ** Warning: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, the result will be 'X'(es).
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(0)/MuxX
+# ** Warning: CONV_INTEGER: There is an 'U'|'X'|'W'|'Z'|'-' in an arithmetic operand, and it has been converted to 0.
+#    Time: 0 ps  Iteration: 0  Instance: /tb_router/uut/Crossbar_inst/GEN_MUX(0)/MuxX

@@ -14,8 +14,9 @@ entity routing_logic_xy is
 		LOCAL_Y : natural := 1
 	);
 	Port (
-		Data_In    : in std_logic_vector(DATA_WIDTH-1 downto 0);
-		In_Channel : in std_logic_vector(SEL_WIDTH-1 downto 0);
+		Data_In      : in std_logic_vector(DATA_WIDTH-1 downto 0);
+		In_Channel   : in std_logic_vector(SEL_WIDTH-1 downto 0);
+		Out_Channel  : out std_logic_vector(SEL_WIDTH-1 downto 0); 
 		crossbar_sel : out crossbar_sel_type		
 	);
 end entity routing_logic_xy;
@@ -38,15 +39,20 @@ begin
 		begin
 			if X_dest > X_source then
 				sel_temp(SOUTH_ID) <= In_Channel;  -- South
+				Out_Channel <= CONV_STD_LOGIC_VECTOR(SOUTH_ID, SEL_WIDTH);
 			elsif X_dest < X_source then
 				sel_temp(NORTH_ID) <= In_Channel;  -- North
+				Out_Channel <= CONV_STD_LOGIC_VECTOR(NORTH_ID, SEL_WIDTH);
 			else
 				if Y_dest > Y_source then
 					sel_temp(EAST_ID) <= In_Channel; -- East
+					Out_Channel <= CONV_STD_LOGIC_VECTOR(EAST_ID, SEL_WIDTH);
 				elsif Y_dest < Y_source then
 					sel_temp(WEST_ID) <= In_Channel; -- West
+					Out_Channel <= CONV_STD_LOGIC_VECTOR(WEST_ID, SEL_WIDTH);
 				else
 					sel_temp(LOCAL_ID) <= In_Channel; -- Local
+					Out_Channel <= CONV_STD_LOGIC_VECTOR(LOCAL_ID, SEL_WIDTH);
 				end if;
 			end if;
 		end process;
