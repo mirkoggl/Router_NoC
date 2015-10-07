@@ -39,7 +39,7 @@ architecture RTL of router_control_unit is
 			Data_In      : in std_logic_vector(DATA_WIDTH-1 downto 0);
 			In_Channel   : in std_logic_vector(SEL_WIDTH-1 downto 0);
 			Out_Channel  : out std_logic_vector(SEL_WIDTH-1 downto 0); 
-			crossbar_sel : out crossbar_sel_type		
+			Crossbar_Sel : out crossbar_sel_type		
 		);
 	END COMPONENT routing_logic_xy;
 	
@@ -62,7 +62,7 @@ begin
 			Data_In      => xy_data_in,
 			In_Channel   => xy_chan_in,
 			Out_Channel  => xy_chan_out,
-			crossbar_sel => Cross_Sel
+			Crossbar_Sel => Cross_Sel
 		);
 	
 	CU_process : process (clk, reset)

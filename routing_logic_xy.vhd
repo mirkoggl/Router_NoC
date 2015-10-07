@@ -1,3 +1,24 @@
+----------------------------------------------------------------------------------
+-- Company: 
+-- Author: 	Mirko Gagliardi
+-- 
+-- Create Date:    02/10/2015
+-- Design Name: 
+-- Module Name:    Routing Logic XY - rtl 
+-- Project Name:   Router_Mesh	
+-- Target Devices: 
+-- Tool versions: 
+-- Description: 
+--
+-- Dependencies: 	 
+--
+-- Revision: v 0.1
+-- Additional Comments:
+--		Estrae dal messaggio in ingresso l'indirizzo del destinatario ed effettua un semplice routing XY.
+--		Eseguito il routing comanda la Crossbar in modo da mettere in comunicazione la Input Fifo in ingresso
+--		con il buffer in uscita opportuno.
+----------------------------------------------------------------------------------
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
@@ -17,7 +38,7 @@ entity routing_logic_xy is
 		Data_In      : in std_logic_vector(DATA_WIDTH-1 downto 0);
 		In_Channel   : in std_logic_vector(SEL_WIDTH-1 downto 0);
 		Out_Channel  : out std_logic_vector(SEL_WIDTH-1 downto 0); 
-		crossbar_sel : out crossbar_sel_type		
+		Crossbar_Sel : out crossbar_sel_type		
 	);
 end entity routing_logic_xy;
 
@@ -33,7 +54,7 @@ architecture RTL of routing_logic_xy is
 
 begin
 		
-	crossbar_sel <= sel_temp;
+	Crossbar_Sel <= sel_temp;
 	
 	routing_mesh : process(Data_In, In_Channel) 
 		begin
