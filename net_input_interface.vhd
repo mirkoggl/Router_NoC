@@ -34,7 +34,7 @@ architecture RTL of net_input_interface is
 	constant min_vect : std_logic_vector(f_log2(FIFO_LENGTH) downto 0) := (others => '0');
 	
 	type fifo_type is array (0 to FIFO_LENGTH-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
-	type state_type is (idle, receive, consume); 
+	type state_type is (idle); 
 	
 	signal current_s : state_type; 
 	
@@ -76,40 +76,23 @@ begin
 		  case current_s is
 		     when idle =>       
 			     if valid ='1' then
-			      current_s <= receive;
-			    elsif shft = '1' then
-			      current_s <= consume;
-			     end if;   
-		
-		     when receive =>       
-			    if fifo_full = '1' then
-			    	ack <= '0';
-			    else
-			    	fifo_memory(conv_integer(tail_pt)) <= Data_In; 
-			    	ack <= '1';
-			    	tail_pt <= tail_pt + '1';
-			    	elem_count <= elem_count + '1';
-			    end if;
-				 
-				 if shft = '1' then 
-					current_s <= consume;
-				 else
-					current_s <= idle;
-				 end if;
-		
-			  when consume =>      
-			    if fifo_empty = '0' then
-			    	elem_count <= elem_count - '1';
-			    	head_pt <= head_pt + '1';
-					sdone <= '1';
-				end if;
-				
-				if valid = '1' then 
-					current_s <= receive;
-				else
-					current_s <= idle;
-				end if;
-			    
+			     	if fifo_full = '1' then
+				    	ack <= '0';
+				    else
+				    	fifo_memory(conv_integer(tail_pt)) <= Data_In; 
+				    	ack <= '1';
+				    	tail_pt <= tail_pt + '1';
+				    	elem_count <= elem_count + '1';
+				    end if;
+			      current_s <= idle;
+				  elsif shft = '1' then
+				  	if fifo_empty = '0' then
+				    	elem_count <= elem_count - '1';
+				    	head_pt <= head_pt + '1';
+						sdone <= '1';
+					end if;
+				    current_s <= idle;
+				  end if;       
 			end case;
 		
 		end if;

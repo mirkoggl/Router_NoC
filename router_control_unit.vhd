@@ -43,7 +43,7 @@ architecture RTL of router_control_unit is
 		);
 	END COMPONENT routing_logic_xy;
 	
-	type state_type is (idle, store_local, out_local, out_delay); 
+	type state_type is (idle, input_shift, input_done, out_wren, out_delay); 
 	
 	-- Control Unit Signals
 	signal current_s : state_type := idle;
@@ -80,40 +80,48 @@ begin
 		    case current_s is
 		     when idle =>       
 			    if Empty_Out(LOCAL_ID) = '0' then		-- Da sostituire con selettore Round Robin
-			    	current_s <= out_local; 
+			    	current_s <= out_wren; 
 			    	xy_data_in <= Data_In(LOCAL_ID); 
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(LOCAL_ID, SEL_WIDTH);
 			    elsif Empty_Out(NORTH_ID) = '0' then
-			    	current_s <= out_local;
+			    	current_s <= out_wren;
 			    	xy_data_in <= Data_In(NORTH_ID);
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(NORTH_ID, SEL_WIDTH);
 			    elsif Empty_Out(EAST_ID) = '0' then
-			    	current_s <= out_local;
+			    	current_s <= out_wren;
 			    	xy_data_in <= Data_In(EAST_ID);
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(EAST_ID, SEL_WIDTH);
 			    elsif Empty_Out(WEST_ID) = '0' then
-			    	current_s <= out_local;
+			    	current_s <= out_wren;
 			    	xy_data_in <= Data_In(WEST_ID);
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(WEST_ID, SEL_WIDTH);
 			    elsif Empty_Out(SOUTH_ID) = '0' then	
-			    	current_s <= out_local;
+			    	current_s <= out_wren;
 			    	xy_data_in <= Data_In(SOUTH_ID);
 			    	xy_chan_in <= CONV_STD_LOGIC_VECTOR(SOUTH_ID, SEL_WIDTH);
 			    else 
 			    	current_s <= idle;
 			    end if;
 			    
-			when store_local =>
+			when input_shift =>
 				if Sdone_In(CONV_INTEGER(xy_chan_in)) = '1' then
 					current_s <= idle;
 				else
 					Shft_In(CONV_INTEGER(xy_chan_in)) <= '1';		 -- Avvisa l'Input Fifo selezionata che il dato è stato prelevato  
-					current_s <= store_local;
+					current_s <= input_done;
+				end if;
+			
+			when input_done =>
+				if Sdone_In(CONV_INTEGER(xy_chan_in)) = '1' then
+					current_s <= idle;
+				else
+					current_s <= input_shift;
 				end if;
 				
-			when out_local =>	
+			when out_wren =>	
 				if Sdone_Out(CONV_INTEGER(xy_chan_out)) = '1' then
-					current_s <= store_local;
+					current_s <= input_done;
+					Shft_In(CONV_INTEGER(xy_chan_in)) <= '1';
 				elsif Full_Out(CONV_INTEGER(xy_chan_out)) = '1' then  -- Fifo Out full, scarta il pacchetto e torna idle
 					current_s <= idle;
 				else
@@ -122,7 +130,7 @@ begin
 				end if;
 			
 			when out_delay => 	-- Stato usato per generare impulsi di write ed evitare di scrivere nel buffer di uscita più volte lo stesso dato
-				current_s <= out_local;
+				current_s <= out_wren;
 						    
 			end case;
 		
