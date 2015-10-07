@@ -6,6 +6,7 @@ use ieee.std_logic_unsigned.all;
 
 library work;
 use work.logpack.all;
+use work.routerpack.all;
 
 entity net_output_interface is
 	Generic (
@@ -32,9 +33,11 @@ architecture RTL of net_output_interface is
 	
 	constant max_vect : std_logic_vector(f_log2(FIFO_LENGTH) downto 0) := conv_std_logic_vector(FIFO_LENGTH, f_log2(FIFO_LENGTH)+1);
 	constant min_vect : std_logic_vector(f_log2(FIFO_LENGTH) downto 0) := (others => '0');
+	constant MIN_COUNT : std_logic_vector(f_log2(COUNTER_WIDTH)-1 downto 0) := (others => '0');
+	constant MAX_COUNT : std_logic_vector(f_log2(COUNTER_WIDTH)-1 downto 0) := (others => '1');
 	
 	type fifo_type is array (0 to FIFO_LENGTH-1) of std_logic_vector(DATA_WIDTH-1 downto 0);
-	type state_type is (idle, send, wait_ack); 
+	type state_type is (idle, wait_ack); 
 	
 	signal current_s : state_type; 
 	
@@ -42,7 +45,7 @@ architecture RTL of net_output_interface is
 	signal head_pt, tail_pt : std_logic_vector(f_log2(FIFO_LENGTH)-1 downto 0) := (others => '0');
 	signal elem_count : std_logic_vector(f_log2(FIFO_LENGTH) downto 0) := (others => '0');
 	
-	signal ack_counter : std_logic_vector(1 downto 0) := (others => '0');
+	signal ack_counter : std_logic_vector(f_log2(COUNTER_WIDTH)-1 downto 0) := (others => '0');
 	
 	signal fifo_full, fifo_empty : std_logic := '0';
 	
@@ -84,30 +87,20 @@ begin
 			      	elem_count <= elem_count + '1';
 			      	current_s <= idle;
 			    elsif fifo_empty = '0' then
-			      	current_s <= send;
-			     end if;   
-		
-			  when send =>      
-			    if fifo_empty = '0' then
 			    	valid <= '1';
 					current_s <= wait_ack;
-					ack_counter <= "00";
+					ack_counter <= MIN_COUNT;
 				 else
-					valid <= '0';
 					current_s <= idle;
-				end if;
-				
+			     end if;   
+		
 			  when wait_ack =>      
 			    if ack = '1' then
 			    	valid <= '0';
 					elem_count <= elem_count - '1';
 					head_pt <= head_pt + '1';
-					if fifo_empty = '0' then 
-						current_s <= send;
-					else
-						current_s <= idle;
-				   end if;
-				elsif ack_counter = "11" then
+					current_s <= idle;
+				elsif ack_counter = MAX_COUNT then
 					current_s <= idle;
 					valid <= '0';
 				else

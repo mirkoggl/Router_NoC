@@ -12,6 +12,9 @@ package routerpack is
 	-- Mesh dimensions
 	constant ROW_LENGTH : natural := 4;
 	constant COL_LENGTH : natural := 4;
+	
+	-- Network Output Interface constant
+	constant COUNTER_WIDTH : natural := 4;
 
 	-- Router constants		 
 	constant CHAN_NUMBER : natural := 5;
