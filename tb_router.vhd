@@ -102,34 +102,6 @@ BEGIN
 	  
 	  wait for clk_period;
 	  Valid_In <= (others => '0');
---	  Valid_In(LOCAL_ID) <= '1';
-	  
---	  wait until Ack_Out (LOCAL_ID) = '1';
---	  Valid_In(LOCAL_ID) <= '0';
-	  
---	  wait for clk_period;
---	  Valid_In(NORTH_ID) <= '1';
-	  
---	  wait until Ack_Out (NORTH_ID) = '1';
---	  Valid_In(NORTH_ID) <= '0';
-	  
---	  wait for clk_period;
---	  Valid_In(EAST_ID) <= '1';
-	  
---	  wait until Ack_Out (EAST_ID) = '1';
---	  Valid_In(EAST_ID) <= '0';
-	  
---	  wait for clk_period;
---	  Valid_In(WEST_ID) <= '1';
-	  
---	  wait until Ack_Out (WEST_ID) = '1';
---	  Valid_In(WEST_ID) <= '0';
-	  
---	  wait for clk_period;
---	  Valid_In(SOUTH_ID) <= '1';
-	  
---	  wait until Ack_Out (SOUTH_ID) = '1';
---	  Valid_In(SOUTH_ID) <= '0';
 
       wait;
    end process;
