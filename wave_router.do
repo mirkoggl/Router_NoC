@@ -10,7 +10,6 @@ add wave -noupdate /tb_router/uut/Input_Interface_GEN(0)/InputInterfaceX/sdone
 add wave -noupdate /tb_router/uut/Input_Interface_GEN(0)/InputInterfaceX/ack
 add wave -noupdate /tb_router/uut/Input_Interface_GEN(0)/InputInterfaceX/empty
 add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(0)/InputInterfaceX/Data_Out
-add wave -noupdate /tb_router/uut/Input_Interface_GEN(0)/InputInterfaceX/current_s
 add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(0)/InputInterfaceX/fifo_memory
 add wave -noupdate -divider {Input 1}
 add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(1)/InputInterfaceX/Data_In
@@ -19,8 +18,31 @@ add wave -noupdate /tb_router/uut/Input_Interface_GEN(1)/InputInterfaceX/sdone
 add wave -noupdate /tb_router/uut/Input_Interface_GEN(1)/InputInterfaceX/ack
 add wave -noupdate /tb_router/uut/Input_Interface_GEN(1)/InputInterfaceX/empty
 add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(1)/InputInterfaceX/Data_Out
-add wave -noupdate /tb_router/uut/Input_Interface_GEN(1)/InputInterfaceX/current_s
 add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(1)/InputInterfaceX/fifo_memory
+add wave -noupdate -divider {Input 2}
+add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(2)/InputInterfaceX/Data_In
+add wave -noupdate /tb_router/uut/Input_Interface_GEN(2)/InputInterfaceX/shft
+add wave -noupdate /tb_router/uut/Input_Interface_GEN(2)/InputInterfaceX/sdone
+add wave -noupdate /tb_router/uut/Input_Interface_GEN(2)/InputInterfaceX/ack
+add wave -noupdate /tb_router/uut/Input_Interface_GEN(2)/InputInterfaceX/empty
+add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(2)/InputInterfaceX/Data_Out
+add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(2)/InputInterfaceX/fifo_memory
+add wave -noupdate -divider {Input 3}
+add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(3)/InputInterfaceX/Data_In
+add wave -noupdate /tb_router/uut/Input_Interface_GEN(3)/InputInterfaceX/shft
+add wave -noupdate /tb_router/uut/Input_Interface_GEN(3)/InputInterfaceX/sdone
+add wave -noupdate /tb_router/uut/Input_Interface_GEN(3)/InputInterfaceX/ack
+add wave -noupdate /tb_router/uut/Input_Interface_GEN(3)/InputInterfaceX/empty
+add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(3)/InputInterfaceX/Data_Out
+add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(3)/InputInterfaceX/fifo_memory
+add wave -noupdate -divider {Input 4}
+add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(4)/InputInterfaceX/Data_In
+add wave -noupdate /tb_router/uut/Input_Interface_GEN(4)/InputInterfaceX/shft
+add wave -noupdate /tb_router/uut/Input_Interface_GEN(4)/InputInterfaceX/sdone
+add wave -noupdate /tb_router/uut/Input_Interface_GEN(4)/InputInterfaceX/ack
+add wave -noupdate /tb_router/uut/Input_Interface_GEN(4)/InputInterfaceX/empty
+add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(4)/InputInterfaceX/Data_Out
+add wave -noupdate -radix unsigned /tb_router/uut/Input_Interface_GEN(4)/InputInterfaceX/fifo_memory
 add wave -noupdate -divider CU
 add wave -noupdate -radix unsigned /tb_router/uut/CU_inst/Data_In
 add wave -noupdate /tb_router/uut/CU_inst/Empty_Out
@@ -36,7 +58,7 @@ add wave -noupdate -radix unsigned /tb_router/uut/CU_inst/xy_chan_in
 add wave -noupdate -divider Crossbar
 add wave -noupdate -radix unsigned /tb_router/uut/Crossbar_inst/sel
 add wave -noupdate -radix unsigned /tb_router/uut/Crossbar_inst/Data_In
-add wave -noupdate -radix unsigned -childformat {{/tb_router/uut/Crossbar_inst/Data_Out(0) -radix unsigned} {/tb_router/uut/Crossbar_inst/Data_Out(1) -radix unsigned} {/tb_router/uut/Crossbar_inst/Data_Out(2) -radix unsigned} {/tb_router/uut/Crossbar_inst/Data_Out(3) -radix unsigned} {/tb_router/uut/Crossbar_inst/Data_Out(4) -radix unsigned}} -subitemconfig {/tb_router/uut/Crossbar_inst/Data_Out(0) {-radix unsigned} /tb_router/uut/Crossbar_inst/Data_Out(1) {-radix unsigned} /tb_router/uut/Crossbar_inst/Data_Out(2) {-radix unsigned} /tb_router/uut/Crossbar_inst/Data_Out(3) {-radix unsigned} /tb_router/uut/Crossbar_inst/Data_Out(4) {-radix unsigned}} /tb_router/uut/Crossbar_inst/Data_Out
+add wave -noupdate -radix unsigned -childformat {{/tb_router/uut/Crossbar_inst/Data_Out(0) -radix unsigned} {/tb_router/uut/Crossbar_inst/Data_Out(1) -radix unsigned} {/tb_router/uut/Crossbar_inst/Data_Out(2) -radix unsigned} {/tb_router/uut/Crossbar_inst/Data_Out(3) -radix unsigned} {/tb_router/uut/Crossbar_inst/Data_Out(4) -radix unsigned}} -subitemconfig {/tb_router/uut/Crossbar_inst/Data_Out(0) {-height 15 -radix unsigned} /tb_router/uut/Crossbar_inst/Data_Out(1) {-height 15 -radix unsigned} /tb_router/uut/Crossbar_inst/Data_Out(2) {-height 15 -radix unsigned} /tb_router/uut/Crossbar_inst/Data_Out(3) {-height 15 -radix unsigned} /tb_router/uut/Crossbar_inst/Data_Out(4) {-height 15 -radix unsigned}} /tb_router/uut/Crossbar_inst/Data_Out
 add wave -noupdate -divider {Output 0}
 add wave -noupdate -radix unsigned /tb_router/uut/Output_Interface_GEN(0)/OutputInterfaceX/Data_In
 add wave -noupdate /tb_router/uut/Output_Interface_GEN(0)/OutputInterfaceX/ack
@@ -93,9 +115,9 @@ add wave -noupdate -radix unsigned /tb_router/uut/Output_Interface_GEN(4)/Output
 add wave -noupdate /tb_router/uut/Output_Interface_GEN(4)/OutputInterfaceX/current_s
 add wave -noupdate -radix unsigned /tb_router/uut/Output_Interface_GEN(4)/OutputInterfaceX/fifo_memory
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {209081 ps} 0}
+WaveRestoreCursors {{Cursor 1} {282951 ps} 0}
 quietly wave cursor active 1
-configure wave -namecolwidth 479
+configure wave -namecolwidth 430
 configure wave -valuecolwidth 100
 configure wave -justifyvalue left
 configure wave -signalnamewidth 0
@@ -109,4 +131,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {750625 ps} {1013125 ps}
+WaveRestoreZoom {0 ps} {1050 ns}

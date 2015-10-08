@@ -78,42 +78,58 @@ BEGIN
    begin		
    	-- hold reset state for 100 ns.
    	  reset <= '1';
-   	  Data_In(LOCAL_ID) <= x"9000"; -- Local ha un pacchetto per X=2 Y=1 (sud)
+   	  Data_In(LOCAL_ID) <= x"9000"; -- Local X=2 Y=1 (south)
    	  Data_In(NORTH_ID) <= x"1000"; -- North X=0 Y=1 (north)
-   	  Data_In(EAST_ID)  <= x"5000"; -- East X=1 Y=1 (questo nodo)
-   	  Data_In(WEST_ID)  <= x"7000"; -- West X=1 Y=3 (east)
+   	  Data_In(EAST_ID)  <= x"5000"; -- East  X=1 Y=1 (local)
+   	  Data_In(WEST_ID)  <= x"7000"; -- West  X=1 Y=3 (east)
    	  Data_In(SOUTH_ID) <= x"4000"; -- South X=1 Y=0 (west)
     	  
       wait for 100 ns;	
 	  reset <= '0';
-	  Valid_In(LOCAL_ID) <= '1';
-	  
-	  wait until Ack_Out (LOCAL_ID) = '1';
-	  Valid_In(LOCAL_ID) <= '0';
+	  Ack_In <= (others => '1');
+	  Valid_In <= (others => '1');
 	  
 	  wait for clk_period;
-	  Valid_In(NORTH_ID) <= '1';
-	  
-	  wait until Ack_Out (NORTH_ID) = '1';
-	  Valid_In(NORTH_ID) <= '0';
+	  Valid_In <= (others => '0');
 	  
 	  wait for clk_period;
-	  Valid_In(EAST_ID) <= '1';
-	  
-	  wait until Ack_Out (EAST_ID) = '1';
-	  Valid_In(EAST_ID) <= '0';
-	  
-	  wait for clk_period;
-	  Valid_In(WEST_ID) <= '1';
-	  
-	  wait until Ack_Out (WEST_ID) = '1';
-	  Valid_In(WEST_ID) <= '0';
+	  Data_In(LOCAL_ID) <= x"B000"; -- Local X=2 Y=3 (south)
+   	  Data_In(NORTH_ID) <= x"7000"; -- North X=0 Y=1 (east)
+   	  Data_In(EAST_ID)  <= x"4000"; -- East  X=1 Y=1 (west)
+   	  Data_In(WEST_ID)  <= x"3000"; -- West  X=1 Y=3 (nord)
+   	  Data_In(SOUTH_ID) <= x"5000"; -- South X=1 Y=0 (local)
+	  Valid_In <= (others => '1');
 	  
 	  wait for clk_period;
-	  Valid_In(SOUTH_ID) <= '1';
+	  Valid_In <= (others => '0');
+--	  Valid_In(LOCAL_ID) <= '1';
 	  
-	  wait until Ack_Out (SOUTH_ID) = '1';
-	  Valid_In(SOUTH_ID) <= '0';
+--	  wait until Ack_Out (LOCAL_ID) = '1';
+--	  Valid_In(LOCAL_ID) <= '0';
+	  
+--	  wait for clk_period;
+--	  Valid_In(NORTH_ID) <= '1';
+	  
+--	  wait until Ack_Out (NORTH_ID) = '1';
+--	  Valid_In(NORTH_ID) <= '0';
+	  
+--	  wait for clk_period;
+--	  Valid_In(EAST_ID) <= '1';
+	  
+--	  wait until Ack_Out (EAST_ID) = '1';
+--	  Valid_In(EAST_ID) <= '0';
+	  
+--	  wait for clk_period;
+--	  Valid_In(WEST_ID) <= '1';
+	  
+--	  wait until Ack_Out (WEST_ID) = '1';
+--	  Valid_In(WEST_ID) <= '0';
+	  
+--	  wait for clk_period;
+--	  Valid_In(SOUTH_ID) <= '1';
+	  
+--	  wait until Ack_Out (SOUTH_ID) = '1';
+--	  Valid_In(SOUTH_ID) <= '0';
 
       wait;
    end process;
