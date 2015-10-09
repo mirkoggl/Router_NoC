@@ -78,11 +78,11 @@ BEGIN
    begin		
    	-- hold reset state for 100 ns.
    	  reset <= '1';
-   	  Data_In(LOCAL_ID) <= x"9000"; -- Local X=2 Y=1 (south)
-   	  Data_In(NORTH_ID) <= x"1000"; -- North X=0 Y=1 (north)
-   	  Data_In(EAST_ID)  <= x"5000"; -- East  X=1 Y=1 (local)
-   	  Data_In(WEST_ID)  <= x"7000"; -- West  X=1 Y=3 (east)
-   	  Data_In(SOUTH_ID) <= x"4000"; -- South X=1 Y=0 (west)
+   	  Data_In(LOCAL_ID) <= x"9001"; -- Local X=2 Y=1 (south)
+   	  Data_In(NORTH_ID) <= x"1002"; -- North X=0 Y=1 (north)
+   	  Data_In(EAST_ID)  <= x"5003"; -- East  X=1 Y=1 (local)
+   	  Data_In(WEST_ID)  <= x"7004"; -- West  X=1 Y=3 (east)
+   	  Data_In(SOUTH_ID) <= x"4005"; -- South X=1 Y=0 (west)
     	  
       wait for 100 ns;	
 	  reset <= '0';
@@ -93,11 +93,33 @@ BEGIN
 	  Valid_In <= (others => '0');
 	  
 	  wait for clk_period;
-	  Data_In(LOCAL_ID) <= x"B000"; -- Local X=2 Y=3 (south)
-   	  Data_In(NORTH_ID) <= x"7000"; -- North X=0 Y=1 (east)
-   	  Data_In(EAST_ID)  <= x"4000"; -- East  X=1 Y=1 (west)
-   	  Data_In(WEST_ID)  <= x"3000"; -- West  X=1 Y=3 (nord)
-   	  Data_In(SOUTH_ID) <= x"5000"; -- South X=1 Y=0 (local)
+	  Data_In(LOCAL_ID) <= x"B006"; -- Local X=2 Y=3 (south)
+   	  Data_In(NORTH_ID) <= x"7007"; -- North X=0 Y=1 (east)
+   	  Data_In(EAST_ID)  <= x"4008"; -- East  X=1 Y=1 (west)
+   	  Data_In(WEST_ID)  <= x"3009"; -- West  X=1 Y=3 (north)
+   	  Data_In(SOUTH_ID) <= x"500A"; -- South X=1 Y=0 (local)
+	  Valid_In <= (others => '1');
+	  
+	  wait for clk_period;
+	  Valid_In <= (others => '0');
+	  
+	  wait for clk_period;
+	  Data_In(LOCAL_ID) <= x"500B"; -- Local X=2 Y=3 (local)
+   	  Data_In(NORTH_ID) <= x"400C"; -- North X=0 Y=1 (west)
+   	  Data_In(EAST_ID)  <= x"B00D"; -- East  X=1 Y=1 (south)
+   	  Data_In(WEST_ID)  <= x"700E"; -- West  X=1 Y=3 (east)
+   	  Data_In(SOUTH_ID) <= x"300F"; -- South X=1 Y=0 (north)
+	  Valid_In <= (others => '1');
+	  
+	  wait for clk_period;
+	  Valid_In <= (others => '0');
+
+	  wait for clk_period;
+	  Data_In(LOCAL_ID) <= x"1010"; -- Local X=2 Y=3 (north)
+   	  Data_In(NORTH_ID) <= x"B011"; -- North X=0 Y=1 (south)
+   	  Data_In(EAST_ID)  <= x"5012"; -- East  X=1 Y=1 (local)
+   	  Data_In(WEST_ID)  <= x"7013"; -- West  X=1 Y=3 (east)
+   	  Data_In(SOUTH_ID) <= x"4014"; -- South X=1 Y=0 (west)
 	  Valid_In <= (others => '1');
 	  
 	  wait for clk_period;

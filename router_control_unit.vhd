@@ -19,7 +19,6 @@ entity router_control_unit is
 		Data_In : in data_array_type;
 		Empty_Out : in std_logic_vector(CHAN_NUMBER-1 downto 0);
 		Full_Out  : in std_logic_vector(CHAN_NUMBER-1 downto 0);
-		Sdone_In  : in std_logic_vector(CHAN_NUMBER-1 downto 0);
 		Sdone_Out : in std_logic_vector(CHAN_NUMBER-1 downto 0);
 		
 		Shft_In   : out std_logic_vector(CHAN_NUMBER-1 downto 0);
@@ -43,7 +42,7 @@ architecture RTL of router_control_unit is
 		);
 	END COMPONENT routing_logic_xy;
 	
-	type state_type is (idle, input_shift, input_done, out_wren, out_delay); 
+	type state_type is (idle, out_wren, out_delay); 
 	
 	-- Control Unit Signals
 	signal current_s : state_type := idle;
@@ -102,35 +101,18 @@ begin
 			    else 
 			    	current_s <= idle;
 			    end if;
-			    
-			when input_shift =>
-				if Sdone_In(CONV_INTEGER(xy_chan_in)) = '1' then
-					current_s <= idle;
-				else
-					Shft_In(CONV_INTEGER(xy_chan_in)) <= '1';		 -- Avvisa l'Input Fifo selezionata che il dato è stato prelevato  
-					current_s <= input_done;
-				end if;
-			
-			when input_done =>
-				if Sdone_In(CONV_INTEGER(xy_chan_in)) = '1' then
-					current_s <= idle;
-				else
-					current_s <= input_shift;
-				end if;
-				
+			    			
 			when out_wren =>	
-				if Sdone_Out(CONV_INTEGER(xy_chan_out)) = '1' then
-					current_s <= input_done;
-					Shft_In(CONV_INTEGER(xy_chan_in)) <= '1';
-				elsif Full_Out(CONV_INTEGER(xy_chan_out)) = '1' then  -- Fifo Out full, scarta il pacchetto e torna idle
+				if Full_Out(CONV_INTEGER(xy_chan_out)) = '1' then  -- Fifo Out full, scarta il pacchetto e torna idle
 					current_s <= idle;
 				else
 					current_s <= out_delay;
-					Wr_En_Out(CONV_INTEGER(xy_chan_out)) <= '1';	
+					Wr_En_Out(CONV_INTEGER(xy_chan_out)) <= '1';
+					Shft_In(CONV_INTEGER(xy_chan_in)) <= '1';
 				end if;
 			
 			when out_delay => 	-- Stato usato per generare impulsi di write ed evitare di scrivere nel buffer di uscita più volte lo stesso dato
-				current_s <= out_wren;
+				current_s <= idle;
 						    
 			end case;
 		

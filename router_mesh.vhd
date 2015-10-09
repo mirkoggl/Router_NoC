@@ -63,7 +63,6 @@ architecture RTL of router_mesh is
 			valid   : in std_logic;
 			shft	  : in std_logic;
 			
-			sdone : out std_logic;
 			ack   : out std_logic;
 			full  : out std_logic;
 			empty : out std_logic;
@@ -89,7 +88,6 @@ architecture RTL of router_mesh is
 			Data_In   : in  data_array_type;
 			Empty_Out : in  std_logic_vector(CHAN_NUMBER - 1 downto 0);
 			Full_Out  : in  std_logic_vector(CHAN_NUMBER - 1 downto 0);
-			Sdone_In  : in  std_logic_vector(CHAN_NUMBER - 1 downto 0);
 			Sdone_Out : in  std_logic_vector(CHAN_NUMBER - 1 downto 0);
 			Shft_In   : out std_logic_vector(CHAN_NUMBER - 1 downto 0);
 			Wr_En_Out : out std_logic_vector(CHAN_NUMBER - 1 downto 0);
@@ -131,7 +129,6 @@ begin
 				Data_In  => Data_In(i),
 				valid    => Valid_In(i),
 				shft     => ii_shft_vector(i),
-				sdone    => ii_sdone_vector(i),
 				ack      => Ack_Out(i),
 				full     => ii_full_vector(i),
 				empty    => ii_empty_vector(i),
@@ -154,7 +151,6 @@ begin
 			Data_In   => cb_data_in,
 			Empty_Out => ii_empty_vector,
 			Full_Out  => oi_full_vector,
-			Sdone_In  => ii_sdone_vector,
 			Sdone_Out => oi_sdone_vector,
 			Shft_In   => ii_shft_vector,
 			Wr_En_Out => oi_wren_vector,

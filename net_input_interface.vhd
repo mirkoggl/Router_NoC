@@ -66,7 +66,6 @@ entity net_input_interface is
 		valid   : in std_logic;								    -- Data Input valid
 		shft	: in std_logic;									-- Shift enable		
 		
-		sdone : out std_logic;									-- Shift Done
 		ack   : out std_logic;									-- Data Input stored
 		full  : out std_logic;									-- Fifo Full
 		empty : out std_logic;									-- Fifo Empty
@@ -102,7 +101,6 @@ begin
 	begin
 		if reset = '1' then
 		  ack <= '0';
-		  sdone <= '0';
 		  head_pt <= (others => '0');
 		  tail_pt <= (others => '0');
 		  fifo_memory <= (others => (others => '0'));
@@ -110,7 +108,6 @@ begin
 		elsif rising_edge(clk) then		
 		  
 		  ack <= '0';
-		  sdone <= '0';
 		      
 		  if valid ='1' then		    -- Data input valid
 			  if fifo_full = '1' then	-- Data input cannot be stored
@@ -119,13 +116,15 @@ begin
 				 fifo_memory(conv_integer(tail_pt)) <= Data_In; 	-- Data input stored correctly
 				 ack <= '1';
 				 tail_pt <= tail_pt + '1';
-		      end if;
-		  elsif shft = '1' then			-- Top Fifo data eliminated
+			  end if;
+		  end if;
+		  	
+		  if shft = '1' then			-- Top Fifo data eliminated
 			  if fifo_empty = '0' then
 				 head_pt <= head_pt + '1';
-				 sdone <= '1';
 			  end if;
 		  end if;  
+		
 		end if;     
 	end process;
 
