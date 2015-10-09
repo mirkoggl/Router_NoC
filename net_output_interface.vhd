@@ -92,19 +92,16 @@ architecture RTL of net_output_interface is
 	signal current_s : state_type; 
 	
 	signal fifo_memory : fifo_type := (others => (others => '0'));
-	signal head_pt, tail_pt : std_logic_vector(f_log2(FIFO_LENGTH)-1 downto 0) := (others => '0');
-	signal elem_count : std_logic_vector(f_log2(FIFO_LENGTH) downto 0) := (others => '0');
-	
+	signal head_pt, tail_pt : std_logic_vector(f_log2(FIFO_LENGTH)-1 downto 0) := (others => '0');	
 	signal ack_counter : std_logic_vector(f_log2(COUNTER_WIDTH)-1 downto 0) := (others => '0');
-	
 	signal fifo_full, fifo_empty : std_logic := '0';
 	
 begin
 	
-	fifo_full <= '1' when elem_count = MAX_VECT
+	fifo_full <= '1' when head_pt = (tail_pt + '1')
 						else '0';
 	
-	fifo_empty <= '1' when elem_count = MIN_VECT		
+	fifo_empty <= '1' when head_pt = tail_pt		
 						else '0'; 
 	
 	full <= fifo_full;
@@ -120,7 +117,6 @@ begin
 		  sdone <= '0';
 		  head_pt <= (others => '0');
 		  tail_pt <= (others => '0');
-		  elem_count <= (others => '0');
 		  fifo_memory <= (others => (others => '0'));
 		
 		elsif rising_edge(clk) then		
@@ -134,7 +130,6 @@ begin
 			      	fifo_memory(conv_integer(tail_pt)) <= Data_In; 
 			      	sdone <= '1';
 			      	tail_pt <= tail_pt + '1';
-			      	elem_count <= elem_count + '1';
 			      	current_s <= idle;
 			    elsif fifo_empty = '0' then					-- Send Fifo first element
 			    	valid <= '1';
@@ -147,7 +142,6 @@ begin
 			  when wait_ack =>      
 			    if ack = '1' then
 			    	valid <= '0';
-					elem_count <= elem_count - '1';
 					head_pt <= head_pt + '1';
 					current_s <= idle;
 				elsif ack_counter = MAX_COUNT then			-- Stop waiting ack and back idle

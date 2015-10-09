@@ -82,17 +82,15 @@ architecture RTL of net_input_interface is
 	type fifo_type is array (0 to FIFO_LENGTH-1) of std_logic_vector(DATA_WIDTH-1 downto 0);	
 	
 	signal fifo_memory : fifo_type := (others => (others => '0'));
-	signal head_pt, tail_pt : std_logic_vector(f_log2(FIFO_LENGTH)-1 downto 0) := (others => '0');
-	signal elem_count : std_logic_vector(f_log2(FIFO_LENGTH) downto 0) := (others => '0');
-	
+	signal head_pt, tail_pt : std_logic_vector(f_log2(FIFO_LENGTH)-1 downto 0) := (others => '0');	
 	signal fifo_full, fifo_empty : std_logic := '0';
 	
 begin
 	
-	fifo_full <= '1' when elem_count = max_vect
+	fifo_full <= '1' when head_pt = (tail_pt + '1')
 						else '0';
 	
-	fifo_empty <= '1' when elem_count = min_vect		
+	fifo_empty <= '1' when head_pt = tail_pt		
 						else '0'; 
 	
 	full <= fifo_full;
@@ -107,7 +105,6 @@ begin
 		  sdone <= '0';
 		  head_pt <= (others => '0');
 		  tail_pt <= (others => '0');
-		  elem_count <= (others => '0');
 		  fifo_memory <= (others => (others => '0'));
 		
 		elsif rising_edge(clk) then		
@@ -122,11 +119,9 @@ begin
 				 fifo_memory(conv_integer(tail_pt)) <= Data_In; 	-- Data input stored correctly
 				 ack <= '1';
 				 tail_pt <= tail_pt + '1';
-				 elem_count <= elem_count + '1';
 		      end if;
 		  elsif shft = '1' then			-- Top Fifo data eliminated
 			  if fifo_empty = '0' then
-				 elem_count <= elem_count - '1';
 				 head_pt <= head_pt + '1';
 				 sdone <= '1';
 			  end if;
