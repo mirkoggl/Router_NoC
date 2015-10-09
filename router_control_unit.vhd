@@ -19,7 +19,6 @@ entity router_control_unit is
 		Data_In : in data_array_type;
 		Empty_Out : in std_logic_vector(CHAN_NUMBER-1 downto 0);
 		Full_Out  : in std_logic_vector(CHAN_NUMBER-1 downto 0);
-		Sdone_Out : in std_logic_vector(CHAN_NUMBER-1 downto 0);
 		
 		Shft_In   : out std_logic_vector(CHAN_NUMBER-1 downto 0);
 		Wr_En_Out : out std_logic_vector(CHAN_NUMBER-1 downto 0);

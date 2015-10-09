@@ -88,7 +88,6 @@ architecture RTL of router_mesh is
 			Data_In   : in  data_array_type;
 			Empty_Out : in  std_logic_vector(CHAN_NUMBER - 1 downto 0);
 			Full_Out  : in  std_logic_vector(CHAN_NUMBER - 1 downto 0);
-			Sdone_Out : in  std_logic_vector(CHAN_NUMBER - 1 downto 0);
 			Shft_In   : out std_logic_vector(CHAN_NUMBER - 1 downto 0);
 			Wr_En_Out : out std_logic_vector(CHAN_NUMBER - 1 downto 0);
 			Cross_Sel : out crossbar_sel_type
@@ -97,7 +96,6 @@ architecture RTL of router_mesh is
 	 
 	 -- Input Interface Signals
 	 signal ii_shft_vector : std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
-	 signal ii_sdone_vector : std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
 	 signal ii_full_vector :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
 	 signal ii_empty_vector :  std_logic_vector(CHAN_NUMBER-1 downto 0) := (others => '0');
 	 
@@ -151,7 +149,6 @@ begin
 			Data_In   => cb_data_in,
 			Empty_Out => ii_empty_vector,
 			Full_Out  => oi_full_vector,
-			Sdone_Out => oi_sdone_vector,
 			Shft_In   => ii_shft_vector,
 			Wr_En_Out => oi_wren_vector,
 			Cross_Sel => cb_sel
